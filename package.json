@@ -1,26 +1,37 @@
 {
-  "name": "instagram",
+  "name": "nextflix-clone",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-types": "npx supabase gen types typescript --project-id ymwtdspryuuchtpshzfw --schema public > types_db.ts"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@material-tailwind/react": "^2.1.10",
+    "@mui/icons-material": "^6.4.8",
+    "@supabase/ssr": "^0.6.1",
+    "@tanstack/react-query": "^5.69.0",
+    "javascript-time-ago": "^2.5.11",
+    "next": "14.2.11",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.11"
+    "react-dropzone": "^14.3.8",
+    "react-intersection-observer": "^9.16.0",
+    "recoil": "^0.7.7"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/react": "18.2.19",
     "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.21",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.11"
+    "typescript": "^5"
   }
 }

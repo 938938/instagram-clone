@@ -20,7 +20,6 @@ const ChatPeopleList = ({ loggedInUser }) => {
     queryKey: ['users'],
     queryFn: async () => {
       const allUsers = await getAllUsers();
-      console.log(allUsers);
       return allUsers.filter((user) => user.id !== loggedInUser.id);
     },
   });

@@ -3,10 +3,10 @@
 import { useRecoilValue } from 'recoil';
 import Person from './Person';
 import Message from './Message';
-import { selectedUserIndexState } from '@/utils/recoil/atoms';
+import { selectedUserIdState } from '@/utils/recoil/atoms';
 
 const ChatScreen = () => {
-  const selectedIndex = useRecoilValue(selectedUserIndexState);
+  const selectedIndex = useRecoilValue(selectedUserIdState);
   return selectedIndex !== null ? (
     <div className='w-full h-screen flex flex-col'>
       <Person

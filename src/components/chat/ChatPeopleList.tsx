@@ -2,45 +2,55 @@
 
 import { useRecoilState } from 'recoil';
 import Person from './Person';
-import { selectedUserIndexState } from '@/utils/recoil/atoms';
+import { selectedUserIdState } from '@/utils/recoil/atoms';
 import { useQuery } from '@tanstack/react-query';
 import { getAllUsers } from '@/actions/chatActions';
 
-const ChatPeopleList = () => {
-  const [selectedIndex, setSelectedIndex] = useRecoilState(
-    selectedUserIndexState
-  );
+const ChatPeopleList = ({ loggedInUser }) => {
+  console.log(loggedInUser.id);
+  const [selectedUserId, setSelectedUserId] =
+    useRecoilState(selectedUserIdState);
 
   const getAllUsersQuery = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
       const allUsers = await getAllUsers();
       console.log(allUsers);
-      // return allUsers.filter((user) => user.id !== loggedInUser.id);
-      return allUsers;
+      return allUsers.filter((user) => user.id !== loggedInUser.id);
     },
   });
 
   return (
     <div className='h-screen min-w-60 flex flex-col bg-gray-50'>
-      <Person
-        onClick={() => setSelectedIndex(0)}
+      {/* <Person
+        onClick={() => setSelectedUserId(0)}
         index={0}
-        isActive={selectedIndex === 0}
+        isActive={selectedUserId === 0}
         name={'Lopun'}
         onChatScreen={false}
         onlineAt={new Date().toISOString()}
         userId={'iasdonfiodasn'}
       />
       <Person
-        onClick={() => setSelectedIndex(1)}
+        onClick={() => setSelectedUserId(1)}
         index={1}
-        isActive={selectedIndex === 1}
+        isActive={selectedUserId === 1}
         name={'홍길동'}
         onChatScreen={false}
         onlineAt={new Date().toISOString()}
         userId={'iasdonfiodasn'}
-      />
+      /> */}
+      {getAllUsersQuery.data?.map((user, idx) => (
+        <Person
+          onClick={() => setSelectedUserId(user.id)}
+          index={idx}
+          isActive={selectedUserId === user.id}
+          name={user.email?.split('@')[0]}
+          onChatScreen={false}
+          onlineAt={new Date().toISOString()}
+          userId={user.id}
+        />
+      ))}
     </div>
   );
 };

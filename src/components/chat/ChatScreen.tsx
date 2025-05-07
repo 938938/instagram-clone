@@ -3,17 +3,44 @@
 import { useRecoilValue } from 'recoil';
 import Person from './Person';
 import Message from './Message';
-import { selectedUserIdState, selectedUserIndexState } from '@/utils/recoil/atoms';
-import { getUserById } from '@/actions/chatActions';
-import { useQuery } from '@tanstack/react-query';
+import {
+  selectedUserIdState,
+  selectedUserIndexState,
+} from '@/utils/recoil/atoms';
+import {
+  getAllMessages,
+  getUserById,
+  sendMessage,
+} from '@/actions/chatActions';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 
 const ChatScreen = () => {
   const selectedUserId = useRecoilValue(selectedUserIdState);
   const selectedUserIndex = useRecoilValue(selectedUserIndexState);
+  const [message, setMessage] = useState<string>('');
 
   const selectedUserQuery = useQuery({
     queryKey: ['user', selectedUserId],
     queryFn: () => getUserById(selectedUserId),
+  });
+
+  const sendMessageMutaton = useMutation({
+    mutationFn: async () => {
+      return sendMessage({
+        message,
+        chatUserId: selectedUserId,
+      });
+    },
+    onSuccess: () => {
+      setMessage('');
+      getAllMessagesQuery.refetch();
+    },
+  });
+
+  const getAllMessagesQuery = useQuery({
+    queryKey: ['messages', selectedUserId],
+    queryFn: () => getAllMessages({ chatUserId: selectedUserId }),
   });
 
   return selectedUserQuery.data !== null ? (

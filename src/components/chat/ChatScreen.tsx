@@ -99,6 +99,12 @@ const ChatScreen = () => {
           onChange={(e) => setMessage(e.target.value)}
           className='p-3 w-full border-2 border-light-blue-600'
           placeholder='메시지를 입력하세요.'
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+              e.preventDefault();
+              sendMessageMutation.mutate();
+            }
+          }}
         />
 
         <button

@@ -36,7 +36,7 @@ const Person = ({
       <div>
         <p className='text-black font-bold text-lg'>{name}</p>
         <p className='text-gray-500 text-sm'>
-          {timeAgo.format(Date.parse(onlineAt))}
+          {onlineAt ? timeAgo.format(Date.parse(onlineAt)) : '미접속 유저'}
         </p>
       </div>
     </div>
